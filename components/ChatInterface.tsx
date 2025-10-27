@@ -112,15 +112,15 @@ export default function ChatInterface() {
           >
             <div className={`flex max-w-[85%] ${message.role === 'user' ? 'flex-row-reverse' : 'flex-row'} items-start space-x-3`}>
               <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center shadow-lg ${message.role === 'user'
-                  ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white'
-                  : 'bg-gradient-to-br from-red-500 to-red-600 text-white'
+                ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white'
+                : 'bg-gradient-to-br from-red-500 to-red-600 text-white'
                 }`}>
                 {message.role === 'user' ? <User className="h-5 w-5" /> : <Bot className="h-5 w-5" />}
               </div>
 
               <div className={`rounded-2xl px-6 py-4 shadow-lg ${message.role === 'user'
-                  ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white'
-                  : 'bg-white text-gray-900 border border-gray-200'
+                ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white'
+                : 'bg-white text-gray-900 border border-gray-200'
                 }`}>
                 <div className="prose prose-sm max-w-none">
                   <ReactMarkdown
@@ -165,7 +165,7 @@ export default function ChatInterface() {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Nhập câu hỏi về Tư tưởng Hồ Chí Minh..."
+            placeholder="Nhập câu hỏi về Lịch sử Đảng Cộng sản Việt Nam..."
             className="flex-1 px-6 py-4 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-500 transition-all duration-300"
             disabled={isLoading}
           />
@@ -181,25 +181,25 @@ export default function ChatInterface() {
 
         <div className="mt-4 flex flex-wrap gap-3">
           <button
-            onClick={() => setInput('Tư tưởng Hồ Chí Minh về độc lập dân tộc là gì?')}
+            onClick={() => setInput('Nguyên nhân ra đời và vai trò lãnh đạo của Đảng Cộng sản Việt Nam?')}
             className="px-4 py-2 text-sm bg-gray-100 border border-gray-200 text-gray-700 rounded-full hover:bg-gray-200 transition-all duration-300 card-hover"
             disabled={isLoading}
           >
-            🏛️ Độc lập dân tộc
+            🏛️ Ra đời của Đảng
           </button>
           <button
-            onClick={() => setInput('Nguyên tắc "Đảng lãnh đạo, Nhà nước quản lý, nhân dân làm chủ" được hiểu như thế nào?')}
+            onClick={() => setInput('Đường lối kháng chiến chống thực dân Pháp của Đảng có những nội dung chính nào?')}
             className="px-4 py-2 text-sm bg-gray-100 border border-gray-200 text-gray-700 rounded-full hover:bg-gray-200 transition-all duration-300 card-hover"
             disabled={isLoading}
           >
-            🎯 Nguyên tắc lãnh đạo
+            🎯 Kháng chiến chống Pháp
           </button>
           <button
-            onClick={() => setInput('Tư tưởng Hồ Chí Minh về đạo đức cách mạng có những nội dung gì?')}
+            onClick={() => setInput('Những thành tựu chính trong công cuộc đổi mới đất nước từ năm 1986?')}
             className="px-4 py-2 text-sm bg-gray-100 border border-gray-200 text-gray-700 rounded-full hover:bg-gray-200 transition-all duration-300 card-hover"
             disabled={isLoading}
           >
-            💎 Đạo đức cách mạng
+            💎 Công cuộc đổi mới
           </button>
           <button
             onClick={() => {
