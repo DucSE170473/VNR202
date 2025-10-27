@@ -17,10 +17,11 @@ export default function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      content: '🌟 **Xin chào!** Tôi là AI hỗ trợ học tập môn **Tư tưởng Hồ Chí Minh**. Tôi có thể giúp bạn:\n\n✨ **Tính năng chính:**\n• 📚 Trả lời câu hỏi về tư tưởng Hồ Chí Minh\n• 🎯 Giải thích các khái niệm và nguyên lý\n• 📖 Hỗ trợ ôn tập và chuẩn bị thi\n• 👨‍🏫 Gửi câu hỏi trực tiếp cho giáo viên\n\n🚀 **Hãy đặt câu hỏi của bạn ngay bây giờ!**',
+      content: '🇻🇳 **Xin chào!** Tôi là AI hỗ trợ học tập môn **Lịch sử Đảng Cộng sản Việt Nam**. Tôi có thể giúp bạn:\n\n✨ **Tính năng chính:**\n• 📚 Trả lời câu hỏi về lịch sử hình thành và phát triển của Đảng\n• 🕰️ Giải thích các sự kiện, cột mốc, và nhân vật lịch sử quan trọng\n• 🧠 Hỗ trợ ôn tập, tóm tắt nội dung từng giai đoạn lịch sử\n• 👩‍🏫 Gửi câu hỏi hoặc thắc mắc trực tiếp cho giáo viên\n\n🚀 **Hãy đặt câu hỏi của bạn ngay bây giờ để bắt đầu học nhé!**',
       role: 'assistant',
       timestamp: new Date()
     }
+
   ])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -61,7 +62,7 @@ export default function ChatInterface() {
       })
 
       const data = await response.json()
-      
+
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
         content: data.response || 'Xin lỗi, tôi không thể trả lời câu hỏi này lúc này.',
@@ -71,7 +72,7 @@ export default function ChatInterface() {
 
       // Check if AI suggests asking teacher
       if (data.response && (
-        data.response.includes('hỏi giáo viên') || 
+        data.response.includes('hỏi giáo viên') ||
         data.response.includes('không chắc chắn') ||
         data.response.includes('không thể trả lời')
       )) {
@@ -94,9 +95,9 @@ export default function ChatInterface() {
   }
 
   const formatTime = (date: Date) => {
-    return date.toLocaleTimeString('vi-VN', { 
-      hour: '2-digit', 
-      minute: '2-digit' 
+    return date.toLocaleTimeString('vi-VN', {
+      hour: '2-digit',
+      minute: '2-digit'
     })
   }
 
@@ -110,37 +111,34 @@ export default function ChatInterface() {
             className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} message-slide-in`}
           >
             <div className={`flex max-w-[85%] ${message.role === 'user' ? 'flex-row-reverse' : 'flex-row'} items-start space-x-3`}>
-              <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center shadow-lg ${
-                message.role === 'user' 
-                  ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white' 
+              <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center shadow-lg ${message.role === 'user'
+                  ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white'
                   : 'bg-gradient-to-br from-red-500 to-red-600 text-white'
-              }`}>
+                }`}>
                 {message.role === 'user' ? <User className="h-5 w-5" /> : <Bot className="h-5 w-5" />}
               </div>
-              
-              <div className={`rounded-2xl px-6 py-4 shadow-lg ${
-                message.role === 'user'
+
+              <div className={`rounded-2xl px-6 py-4 shadow-lg ${message.role === 'user'
                   ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white'
                   : 'bg-white text-gray-900 border border-gray-200'
-              }`}>
+                }`}>
                 <div className="prose prose-sm max-w-none">
-                  <ReactMarkdown 
+                  <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     className={message.role === 'user' ? 'prose-invert' : ''}
                   >
                     {message.content}
                   </ReactMarkdown>
                 </div>
-                <div className={`text-xs mt-3 ${
-                  message.role === 'user' ? 'text-blue-100' : 'text-gray-500'
-                }`}>
+                <div className={`text-xs mt-3 ${message.role === 'user' ? 'text-blue-100' : 'text-gray-500'
+                  }`}>
                   {formatTime(message.timestamp)}
                 </div>
               </div>
             </div>
           </div>
         ))}
-        
+
         {isLoading && (
           <div className="flex justify-start">
             <div className="flex items-start space-x-3">
@@ -156,7 +154,7 @@ export default function ChatInterface() {
             </div>
           </div>
         )}
-        
+
         <div ref={messagesEndRef} />
       </div>
 
@@ -180,7 +178,7 @@ export default function ChatInterface() {
             <span className="hidden sm:inline font-medium">Gửi</span>
           </button>
         </form>
-        
+
         <div className="mt-4 flex flex-wrap gap-3">
           <button
             onClick={() => setInput('Tư tưởng Hồ Chí Minh về độc lập dân tộc là gì?')}
@@ -218,7 +216,7 @@ export default function ChatInterface() {
       </div>
 
       {/* Question Modal */}
-      <QuestionModal 
+      <QuestionModal
         isOpen={isQuestionModalOpen}
         onClose={() => setIsQuestionModalOpen(false)}
         initialQuestion={pendingQuestion}
