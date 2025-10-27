@@ -39,13 +39,17 @@ Hãy trả lời một cách nhiệt tình, chính xác và hữu ích.`
       }
     ]
 
+    console.log('Generating response for message:', message)
     const response = await generateContent(messages)
+    console.log('Generated response:', response?.substring(0, 100))
 
     return NextResponse.json({ response })
   } catch (error) {
-    console.error('Gemini API error:', error)
+    console.error('Chat API error:', error)
+    const errorMessage = error instanceof Error ? error.message : 'Có lỗi xảy ra khi xử lý câu hỏi'
+    
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Có lỗi xảy ra khi xử lý câu hỏi' },
+      { error: errorMessage, details: error instanceof Error ? error.stack : undefined },
       { status: 500 }
     )
   }

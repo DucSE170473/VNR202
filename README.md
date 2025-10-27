@@ -31,10 +31,14 @@ npm install
 cp env.example .env.local
 ```
 
-4. Thêm OpenAI API Key vào `.env.local`:
+4. Thêm Gemini API Key vào `.env.local`:
 ```
-OPENAI_API_KEY=your_openai_api_key_here
+GEMINI_API_KEY=your_gemini_api_key_here
+GEMINI_API_URL=https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent
+GEMINI_MODEL=gemini-2.0-flash
 ```
+
+**Lưu ý:** Bạn có thể lấy Gemini API key từ: https://makersuite.google.com/app/apikey
 
 5. Chạy ứng dụng:
 ```bash
@@ -69,7 +73,9 @@ npm run dev
 1. Push code lên GitHub
 2. Kết nối repository với Vercel
 3. Thêm environment variables:
-   - `OPENAI_API_KEY`: API key của OpenAI
+   - `GEMINI_API_KEY`: API key của Google Gemini
+   - `GEMINI_API_URL`: URL của Gemini API (optional)
+   - `GEMINI_MODEL`: Model Gemini (optional, mặc định: gemini-2.0-flash)
 4. Deploy
 
 ## Sử dụng
@@ -89,14 +95,14 @@ npm run dev
 - **Next.js 14** - React framework
 - **TypeScript** - Type safety
 - **Tailwind CSS** - Styling
-- **OpenAI API** - AI chat
+- **Google Gemini API** - AI chat
 - **Vercel** - Deployment
 - **PDF-parse** - Đọc file PDF
 - **Mammoth** - Đọc file Word
 
 ## Lưu ý
 
-- Cần có OpenAI API key để sử dụng tính năng chat AI
+- Cần có Google Gemini API key để sử dụng tính năng chat AI (lấy tại: https://makersuite.google.com/app/apikey)
 - File upload giới hạn 10MB
 - Hỗ trợ định dạng PDF và Word
 - Dữ liệu câu hỏi hiện tại lưu trong memory (cần database cho production)

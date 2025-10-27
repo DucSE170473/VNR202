@@ -63,6 +63,11 @@ export default function ChatInterface() {
 
       const data = await response.json()
 
+      // Kiểm tra nếu có lỗi từ API
+      if (!response.ok) {
+        throw new Error(data.error || 'Có lỗi xảy ra khi xử lý câu hỏi')
+      }
+
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
         content: data.response || 'Xin lỗi, tôi không thể trả lời câu hỏi này lúc này.',
@@ -84,7 +89,7 @@ export default function ChatInterface() {
       console.error('Error:', error)
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: 'Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại sau.',
+        content: `⚠️ **Lỗi xảy ra:**\n\n${error instanceof Error ? error.message : 'Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại sau.'}\n\n💡 **Gợi ý:** Hãy kiểm tra lại kết nối mạng hoặc thử lại sau.`,
         role: 'assistant',
         timestamp: new Date()
       }

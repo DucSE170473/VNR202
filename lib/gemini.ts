@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const geminiConfig = {
-    apiKey: process.env.GEMINI_API_KEY || 'AIzaSyBny_5rk8aKOYT4Ld-_sgT9FD0v-Eggb54',
+    apiKey: process.env.GEMINI_API_KEY,
     apiUrl: process.env.GEMINI_API_URL || 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent',
     model: process.env.GEMINI_MODEL || 'gemini-2.0-flash'
 }
@@ -23,6 +23,11 @@ export interface GeminiRequest {
 
 export async function generateContent(messages: GeminiMessage[]): Promise<string> {
   try {
+    // Kiểm tra API key
+    if (!geminiConfig.apiKey) {
+      throw new Error('GEMINI_API_KEY chưa được cấu hình trong môi trường. Vui lòng tạo file .env.local với GEMINI_API_KEY.')
+    }
+
     const requestData: GeminiRequest = {
       contents: messages,
       generationConfig: {
@@ -60,16 +65,17 @@ export async function generateContent(messages: GeminiMessage[]): Promise<string
     if (axios.isAxiosError(error)) {
       console.error('Error response:', error.response?.data)
       if (error.response?.status === 401) {
-        throw new Error('API key không hợp lệ')
+        throw new Error('API key không hợp lệ. Vui lòng kiểm tra GEMINI_API_KEY trong file .env.local')
       } else if (error.response?.status === 429) {
-        throw new Error('Đã vượt quá giới hạn API')
+        throw new Error('Đã vượt quá giới hạn API. Vui lòng thử lại sau.')
       } else if (error.response?.status === 400) {
-        throw new Error(`Lỗi yêu cầu: ${JSON.stringify(error.response?.data)}`)
+        const errorMsg = error.response?.data?.error?.message || JSON.stringify(error.response?.data)
+        throw new Error(`Lỗi yêu cầu: ${errorMsg}`)
       } else {
         throw new Error(`Lỗi API: ${error.response?.status} - ${JSON.stringify(error.response?.data)}`)
       }
     }
-    throw new Error('Có lỗi xảy ra khi gọi Gemini API')
+    throw new Error(error instanceof Error ? error.message : 'Có lỗi xảy ra khi gọi Gemini API')
   }
 }
 
